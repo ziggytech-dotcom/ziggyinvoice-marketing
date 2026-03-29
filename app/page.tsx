@@ -1,338 +1,805 @@
-import type { Metadata } from "next";
-import Link from "next/link";
+import Script from "next/script"
 
-export const metadata: Metadata = {
-  title: "ZiggyInvoice — Invoicing that gets you paid faster",
-  description:
-    "Send professional invoices, accept Stripe payments, and get paid faster. Auto-reminders, client portal, recurring invoices — starting at $19/mo.",
-};
+const ACCENT = "#6366f1"
+const ACCENT_BG = "rgba(99,102,241,0.1)"
+const ACCENT_BORDER = "rgba(99,102,241,0.25)"
+const ACCENT_DIM = "rgba(99,102,241,0.03)"
 
-const FEATURES = [
-  {
-    icon: "💳",
-    title: "Stripe Payments",
-    desc: "Accept credit cards and bank transfers directly from your invoice. Funds hit your account in days.",
-  },
-  {
-    icon: "🔔",
-    title: "Auto Reminders",
-    desc: "Politely chase overdue invoices on autopilot. Set it once, never think about it again.",
-  },
-  {
-    icon: "📄",
-    title: "PDF Generation",
-    desc: "Beautiful, branded PDF invoices your clients can download and reference at any time.",
-  },
-  {
-    icon: "👥",
-    title: "Client Management",
-    desc: "Store all your clients in one place. Send invoices, track history, manage contacts with ease.",
-  },
-  {
-    icon: "⏰",
-    title: "Overdue Tracking",
-    desc: "Instantly see which invoices are overdue. Never lose track of money owed to you.",
-  },
-  {
-    icon: "🔄",
-    title: "Recurring Invoices",
-    desc: "Set up automatic recurring billing for retainer clients. Bill monthly, quarterly — your choice.",
-  },
-];
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "ZiggyInvoice",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "url": "https://ziggyinvoice.com",
+      "description": "Invoicing and billing for freelancers and small businesses. Unlimited invoices, recurring billing, Stripe payments, time tracking, and expense tracking — $15/mo flat.",
+      "offers": {
+        "@type": "Offer",
+        "price": "15.00",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "15.00",
+          "priceCurrency": "USD",
+          "unitText": "MONTH",
+          "description": "Flat $15/mo — unlimited invoices, unlimited clients, all features included."
+        }
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does ZiggyInvoice cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ZiggyInvoice is $15/mo flat. That includes unlimited invoices, unlimited clients, recurring billing, late fee automation, time tracking, expense tracking, and a client payment portal. No tiers, no client limits, no add-ons."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are there any limits on clients or invoices?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "None. Every plan includes unlimited clients and unlimited invoices. We don't believe in punishing you for growing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do clients pay?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Clients pay via the online payment portal — credit card or ACH bank transfer, powered by Stripe. Funds go directly to your Stripe account. You can also accept payments in multiple currencies."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the free trial work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You get 14 days free — no credit card required. Full access to all live features from day one. If it's not for you, just walk away."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does recurring billing work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Set up a recurring invoice once — choose the interval (monthly, quarterly, etc.) and ZiggyInvoice automatically sends and charges it on schedule. You'll never forget to bill a retainer client again."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is ZiggyInvoice different from FreshBooks?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "FreshBooks starts at $17/mo but limits how many clients you can have on lower tiers. ZiggyInvoice is $15/mo with unlimited clients and unlimited invoices — no tier games, no upsells. Everything included."
+          }
+        }
+      ]
+    }
+  ]
+}
 
-const TESTIMONIALS = [
-  {
-    quote: "I switched from FreshBooks and saved over $600/year. ZiggyInvoice just works.",
-    name: "Sarah K.",
-    role: "Freelance Designer",
-  },
-  {
-    quote: "The auto-reminders alone are worth every penny. I spend zero time chasing payments now.",
-    name: "Marcus T.",
-    role: "Web Developer",
-  },
-  {
-    quote: "My clients love the portal. It looks so professional they think I have a whole team.",
-    name: "Priya M.",
-    role: "Marketing Consultant",
-  },
-];
-
-export default function HomePage() {
+export default function Home() {
   return (
-    <div style={{ background: "#ffffff", color: "#111827" }}>
+    <>
+      <Script
+        id="json-ld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
-      {/* ── HERO ─────────────────────────────────────────────────────────── */}
-      <section style={{ position: "relative", overflow: "hidden", padding: "80px 24px 96px", background: "linear-gradient(135deg, #eef2ff 0%, #ffffff 50%, #faf5ff 100%)" }}>
-        <div aria-hidden style={{ position: "absolute", top: "-100px", right: "-150px", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%)", pointerEvents: "none" }} />
+      <style>{`@media(max-width:768px){.nav-links{display:none}}`}</style>
 
-        <div style={{ maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr", gap: "64px", alignItems: "center", position: "relative" }} className="hero-grid">
-          <div style={{ maxWidth: "620px" }}>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "#eef2ff", border: "1px solid #c7d2fe", borderRadius: "999px", padding: "6px 14px", marginBottom: "28px" }}>
-              <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#6366f1", flexShrink: 0 }} />
-              <span style={{ fontSize: "13px", fontWeight: 600, color: "#6366f1" }}>Trusted by 5,000+ small businesses</span>
-            </div>
-
-            <h1 style={{ fontSize: "clamp(40px, 6vw, 68px)", fontWeight: 800, lineHeight: 1.08, letterSpacing: "-2px", margin: "0 0 24px", color: "#111827" }}>
-              Invoicing that{" "}
-              <span style={{ color: "#6366f1" }}>gets you paid</span>{" "}
-              faster
-            </h1>
-
-            <p style={{ fontSize: "19px", fontWeight: 400, color: "#4b5563", lineHeight: 1.65, margin: "0 0 36px", maxWidth: "520px" }}>
-              Send professional invoices, accept Stripe payments online, and auto-chase overdue bills — all from one simple dashboard.
-            </p>
-
-            <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "20px" }}>
-              <a href="https://app.ziggyinvoice.com/signup" className="btn-primary">
-                Start free trial →
-              </a>
-              <Link href="/features" className="btn-outline">
-                See all features
-              </Link>
-            </div>
-
-            <p style={{ fontSize: "13px", color: "#9ca3af", margin: 0 }}>
-              No credit card required &nbsp;·&nbsp; 14-day free trial &nbsp;·&nbsp; Cancel anytime
-            </p>
-          </div>
-
-          {/* Mock invoice */}
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <div style={{ background: "#ffffff", border: "1px solid #e5e7eb", borderRadius: "16px", padding: "28px", width: "100%", maxWidth: "400px", boxShadow: "0 25px 60px rgba(99,102,241,0.12), 0 4px 16px rgba(0,0,0,0.06)" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "20px" }}>
-                <div>
-                  <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", color: "#9ca3af", textTransform: "uppercase", marginBottom: "4px" }}>Invoice</div>
-                  <div style={{ fontSize: "22px", fontWeight: 700, color: "#111827", letterSpacing: "-0.5px" }}>#INV-0047</div>
-                </div>
-                <span style={{ background: "#dcfce7", color: "#16a34a", border: "1px solid #bbf7d0", fontSize: "12px", fontWeight: 700, padding: "4px 12px", borderRadius: "999px" }}>PAID</span>
-              </div>
-              <div style={{ height: "1px", background: "#f3f4f6", marginBottom: "16px" }} />
-              <div style={{ marginBottom: "16px" }}>
-                <div style={{ fontSize: "11px", fontWeight: 600, color: "#9ca3af", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "4px" }}>Billed To</div>
-                <div style={{ fontSize: "15px", fontWeight: 600, color: "#111827" }}>Acme Corp Ltd.</div>
-                <div style={{ fontSize: "13px", color: "#6b7280", marginTop: "2px" }}>billing@acmecorp.com</div>
-              </div>
-              <div style={{ background: "#f9fafb", borderRadius: "8px", padding: "12px 14px", marginBottom: "16px", display: "flex", flexDirection: "column", gap: "10px" }}>
-                {[
-                  { desc: "Brand Identity Design", amt: "$2,400.00" },
-                  { desc: "Website Redesign", amt: "$3,600.00" },
-                  { desc: "Social Media Kit", amt: "$450.00" },
-                ].map((item) => (
-                  <div key={item.desc} style={{ display: "flex", justifyContent: "space-between" }}>
-                    <div style={{ fontSize: "13px", color: "#374151" }}>{item.desc}</div>
-                    <div style={{ fontSize: "13px", fontWeight: 600, color: "#111827" }}>{item.amt}</div>
-                  </div>
-                ))}
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-                <div style={{ fontSize: "14px", fontWeight: 600, color: "#6b7280" }}>Amount Due</div>
-                <div style={{ fontSize: "24px", fontWeight: 700, color: "#6366f1", letterSpacing: "-0.5px" }}>$6,450.00</div>
-              </div>
-              <div style={{ background: "#eef2ff", borderRadius: "8px", padding: "11px", textAlign: "center" }}>
-                <span style={{ fontSize: "14px", fontWeight: 700, color: "#6366f1" }}>✓ Payment received via Stripe</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── SOCIAL PROOF BAR ─────────────────────────────────────────────── */}
-      <section style={{ borderTop: "1px solid #e5e7eb", borderBottom: "1px solid #e5e7eb", background: "#f9fafb", padding: "28px 24px" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "24px", flexWrap: "wrap", justifyContent: "center" }}>
-            <span style={{ fontSize: "14px", fontWeight: 500, color: "#6b7280" }}>Join 5,000+ businesses getting paid faster</span>
-            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <span style={{ color: "#f59e0b", fontSize: "16px", letterSpacing: "1px" }}>★★★★★</span>
-              <span style={{ fontSize: "14px", fontWeight: 600, color: "#111827" }}>4.9/5</span>
-              <span style={{ fontSize: "13px", color: "#9ca3af" }}>from 500+ reviews</span>
-            </div>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "48px", flexWrap: "wrap", justifyContent: "center" }}>
-            {["Forbes", "Product Hunt", "TechCrunch"].map((logo) => (
-              <span key={logo} style={{ fontSize: "14px", fontWeight: 700, color: "#d1d5db", letterSpacing: "0.08em", textTransform: "uppercase" }}>{logo}</span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── FEATURES ─────────────────────────────────────────────────────── */}
-      <section style={{ padding: "96px 24px" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: "56px" }}>
-            <h2 style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, letterSpacing: "-1.5px", color: "#111827", margin: "0 0 16px" }}>
-              Everything you need to get paid
-            </h2>
-            <p style={{ fontSize: "18px", color: "#6b7280", maxWidth: "480px", margin: "0 auto", lineHeight: 1.6 }}>
-              One subscription. All features included. No hidden fees.
-            </p>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }} className="features-grid">
-            {FEATURES.map((f) => (
-              <div key={f.title} style={{ background: "#ffffff", border: "1px solid #e5e7eb", borderRadius: "14px", padding: "28px" }} className="feature-card">
-                <div style={{ width: "48px", height: "48px", background: "#eef2ff", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "16px", fontSize: "24px" }}>
-                  {f.icon}
-                </div>
-                <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#111827", margin: "0 0 8px" }}>{f.title}</h3>
-                <p style={{ fontSize: "14px", color: "#6b7280", margin: 0, lineHeight: 1.65 }}>{f.desc}</p>
-              </div>
-            ))}
-          </div>
-          <div style={{ textAlign: "center", marginTop: "40px" }}>
-            <Link href="/features" style={{ fontWeight: 600, fontSize: "15px", color: "#6366f1", textDecoration: "none" }}>
-              View all features →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── HOW IT WORKS ─────────────────────────────────────────────────── */}
-      <section style={{ padding: "96px 24px", background: "#f9fafb", borderTop: "1px solid #e5e7eb", borderBottom: "1px solid #e5e7eb" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: "64px" }}>
-            <h2 style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, letterSpacing: "-1.5px", color: "#111827", margin: 0 }}>
-              Get paid in 3 simple steps
-            </h2>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "40px" }} className="steps-grid">
-            {[
-              { n: "1", title: "Create", desc: "Build a professional invoice in 60 seconds. Add your logo, line items, and payment terms." },
-              { n: "2", title: "Send", desc: "Email the invoice or share a link. Clients see a beautiful, branded invoice." },
-              { n: "3", title: "Get paid", desc: "Client pays online via Stripe. Funds land in your bank in 2–3 business days." },
-            ].map((step) => (
-              <div key={step.n} style={{ textAlign: "center" }}>
-                <div style={{ width: "64px", height: "64px", borderRadius: "50%", background: "#6366f1", color: "#ffffff", fontSize: "26px", fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
-                  {step.n}
-                </div>
-                <h3 style={{ fontSize: "22px", fontWeight: 700, color: "#111827", margin: "0 0 12px", letterSpacing: "-0.3px" }}>{step.title}</h3>
-                <p style={{ fontSize: "15px", color: "#6b7280", lineHeight: 1.65, margin: 0 }}>{step.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── PRICING TEASER ───────────────────────────────────────────────── */}
-      <section style={{ padding: "96px 24px" }}>
-        <div style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center" }}>
-          <h2 style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, letterSpacing: "-1.5px", color: "#111827", margin: "0 0 16px" }}>
-            Simple, transparent pricing
-          </h2>
-          <p style={{ fontSize: "18px", color: "#6b7280", margin: "0 0 48px" }}>Plans for every stage. Start small, scale as you grow.</p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px", marginBottom: "36px" }} className="pricing-grid">
-            {[
-              { name: "Starter", price: "$19", mo: "/mo", note: "For freelancers", highlight: false },
-              { name: "Growth", price: "$49", mo: "/mo", note: "For small teams", highlight: true },
-              { name: "Pro", price: "$99", mo: "/mo", note: "For agencies", highlight: false },
-            ].map((plan) => (
-              <div key={plan.name} style={{ border: plan.highlight ? "2px solid #6366f1" : "1px solid #e5e7eb", borderRadius: "14px", padding: "28px 20px", background: plan.highlight ? "#eef2ff" : "#ffffff", position: "relative" }}>
-                {plan.highlight && (
-                  <div style={{ position: "absolute", top: "-12px", left: "50%", transform: "translateX(-50%)", background: "#6366f1", color: "#ffffff", fontSize: "11px", fontWeight: 700, padding: "3px 12px", borderRadius: "999px" }}>
-                    POPULAR
-                  </div>
-                )}
-                <div style={{ fontSize: "14px", fontWeight: 600, color: "#6b7280", marginBottom: "8px" }}>{plan.name}</div>
-                <div style={{ display: "flex", alignItems: "baseline", gap: "2px", justifyContent: "center" }}>
-                  <span style={{ fontSize: "40px", fontWeight: 800, color: "#111827", letterSpacing: "-2px" }}>{plan.price}</span>
-                  <span style={{ fontSize: "16px", color: "#9ca3af" }}>{plan.mo}</span>
-                </div>
-                <div style={{ fontSize: "13px", color: "#9ca3af", marginTop: "4px" }}>{plan.note}</div>
-              </div>
-            ))}
-          </div>
-          <Link href="/pricing" className="btn-primary">
-            View full pricing →
-          </Link>
-        </div>
-      </section>
-
-      {/* ── TESTIMONIALS ─────────────────────────────────────────────────── */}
-      <section style={{ padding: "96px 24px", background: "#f9fafb", borderTop: "1px solid #e5e7eb" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: "56px" }}>
-            <h2 style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, letterSpacing: "-1.5px", color: "#111827", margin: 0 }}>
-              What our customers say
-            </h2>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px" }} className="testimonials-grid">
-            {TESTIMONIALS.map((t) => (
-              <div key={t.name} style={{ background: "#ffffff", border: "1px solid #e5e7eb", borderRadius: "14px", padding: "28px", display: "flex", flexDirection: "column", gap: "16px" }}>
-                <div style={{ color: "#f59e0b", fontSize: "16px", letterSpacing: "2px" }}>★★★★★</div>
-                <p style={{ fontSize: "16px", color: "#374151", lineHeight: 1.7, margin: 0, flex: 1 }}>&ldquo;{t.quote}&rdquo;</p>
-                <div>
-                  <div style={{ fontSize: "15px", fontWeight: 700, color: "#111827" }}>{t.name}</div>
-                  <div style={{ fontSize: "13px", color: "#9ca3af", marginTop: "2px" }}>{t.role}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── FINAL CTA ────────────────────────────────────────────────────── */}
-      <section style={{ padding: "96px 24px", background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)" }}>
-        <div style={{ maxWidth: "640px", margin: "0 auto", textAlign: "center" }}>
-          <h2 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, letterSpacing: "-1.5px", color: "#ffffff", margin: "0 0 16px", lineHeight: 1.1 }}>
-            Ready to get paid faster?
-          </h2>
-          <p style={{ fontSize: "18px", color: "rgba(255,255,255,0.8)", lineHeight: 1.65, margin: "0 0 40px" }}>
-            Join thousands of freelancers and small businesses who invoice smarter.
-          </p>
-          <a href="https://app.ziggyinvoice.com/signup" className="btn-white" style={{ display: "inline-block", marginBottom: "16px" }}>
-            Start your free 14-day trial
+      {/* ── NAV ── */}
+      <nav style={{
+        position: "sticky",
+        top: 0,
+        zIndex: 100,
+        background: "rgba(10,10,10,0.92)",
+        backdropFilter: "blur(12px)",
+        borderBottom: "1px solid #1f1f1f",
+        padding: "0 24px",
+      }}>
+        <div style={{
+          maxWidth: 1120,
+          margin: "0 auto",
+          height: 64,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}>
+          <a href="/" style={{ fontSize: 22, fontWeight: 700, color: "#fff", letterSpacing: "-0.5px" }}>
+            Ziggy<span style={{ color: ACCENT }}>Invoice</span>
           </a>
-          <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.6)", margin: 0 }}>No credit card required</p>
+
+          <div className="nav-links" style={{ display: "flex", alignItems: "center", gap: 32 }}>
+            <div style={{ display: "flex", gap: 28 }}>
+              {[
+                ["Features", "#features"],
+                ["Compare", "/vs/freshbooks"],
+                ["Pricing", "#pricing"],
+                ["Sign In", "https://app.ziggyinvoice.com/login"],
+              ].map(([label, href]) => (
+                <a key={label} href={href} style={{ color: "#888", fontSize: 15, fontWeight: 500 }}>
+                  {label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <a href="https://app.ziggyinvoice.com/signup" style={{
+            background: ACCENT,
+            color: "#fff",
+            padding: "9px 20px",
+            borderRadius: 8,
+            fontSize: 14,
+            fontWeight: 600,
+            whiteSpace: "nowrap",
+          }}>
+            Start Free Trial
+          </a>
+        </div>
+      </nav>
+
+      {/* ── HERO ── */}
+      <section style={{
+        padding: "100px 24px 80px",
+        textAlign: "center",
+        maxWidth: 820,
+        margin: "0 auto",
+      }}>
+        <div style={{
+          display: "inline-block",
+          background: ACCENT_BG,
+          border: `1px solid ${ACCENT_BORDER}`,
+          borderRadius: 99,
+          padding: "6px 16px",
+          fontSize: 13,
+          color: ACCENT,
+          fontWeight: 600,
+          marginBottom: 28,
+          letterSpacing: "0.02em",
+        }}>
+          FreshBooks Alternative · $15/mo flat · Unlimited clients
+        </div>
+
+        <h1 style={{
+          fontSize: "clamp(42px, 6vw, 68px)",
+          fontWeight: 700,
+          lineHeight: 1.08,
+          letterSpacing: "-1.5px",
+          marginBottom: 24,
+          color: "#fff",
+        }}>
+          Get paid faster.<br />
+          <span style={{
+            background: `linear-gradient(135deg, #fff 0%, ${ACCENT} 100%)`,
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+          }}>Stop chasing invoices.</span>
+        </h1>
+
+        <p style={{ fontSize: 19, color: "#888", lineHeight: 1.6, marginBottom: 40, maxWidth: 600, margin: "0 auto 40px" }}>
+          Send professional invoices in under 2 minutes. Collect payment via Stripe. Automate recurring billing and late fees. Everything you need to get paid — for <strong style={{ color: "#fff" }}>$15/mo flat</strong>.
+        </p>
+
+        <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap", marginBottom: 20 }}>
+          <a href="https://app.ziggyinvoice.com/signup" style={{
+            background: ACCENT,
+            color: "#fff",
+            padding: "15px 30px",
+            borderRadius: 10,
+            fontSize: 16,
+            fontWeight: 600,
+          }}>
+            Start Free Trial — 14 days free
+          </a>
+          <a href="#pricing" style={{
+            background: "transparent",
+            color: "#fff",
+            padding: "15px 30px",
+            borderRadius: 10,
+            fontSize: 16,
+            fontWeight: 600,
+            border: "1px solid #333",
+          }}>
+            See Pricing
+          </a>
+        </div>
+
+        <p style={{ fontSize: 13, color: "#555", letterSpacing: "0.03em" }}>
+          No credit card · 14-day free trial · Unlimited clients & invoices
+        </p>
+
+        {/* Trust badges */}
+        <div style={{
+          display: "flex",
+          gap: 24,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          marginTop: 40,
+        }}>
+          {[
+            "💳 Stripe payments built-in",
+            "♾️ Unlimited clients, always",
+            "🔁 Recurring billing on autopilot",
+          ].map(badge => (
+            <span key={badge} style={{
+              fontSize: 13,
+              color: "#666",
+              background: "#111",
+              border: "1px solid #1f1f1f",
+              borderRadius: 8,
+              padding: "8px 14px",
+            }}>
+              {badge}
+            </span>
+          ))}
         </div>
       </section>
 
-      <style>{`
-        .btn-primary {
-          display: inline-block;
-          background: #6366f1;
-          color: #ffffff;
-          font-weight: 700;
-          font-size: 16px;
-          text-decoration: none;
-          padding: 14px 28px;
-          border-radius: 10px;
-          transition: background 0.15s, transform 0.1s;
-        }
-        .btn-primary:hover { background: #4f46e5; transform: translateY(-1px); }
-        .btn-outline {
-          display: inline-block;
-          background: #ffffff;
-          color: #374151;
-          font-weight: 600;
-          font-size: 16px;
-          text-decoration: none;
-          padding: 14px 28px;
-          border-radius: 10px;
-          border: 1px solid #d1d5db;
-          transition: border-color 0.15s, color 0.15s;
-        }
-        .btn-outline:hover { border-color: #6366f1; color: #6366f1; }
-        .btn-white {
-          background: #ffffff;
-          color: #6366f1;
-          font-weight: 700;
-          font-size: 17px;
-          text-decoration: none;
-          padding: 16px 36px;
-          border-radius: 12px;
-          transition: background 0.15s;
-        }
-        .btn-white:hover { background: #f3f4f6; }
-        .feature-card { transition: border-color 0.2s, box-shadow 0.2s; }
-        .feature-card:hover { border-color: #a5b4fc; box-shadow: 0 4px 20px rgba(99,102,241,0.1); }
-        @media (min-width: 900px) { .hero-grid { grid-template-columns: 1fr 1fr !important; } }
-        @media (max-width: 899px) {
-          .features-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .testimonials-grid { grid-template-columns: 1fr !important; }
-          .steps-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
-          .pricing-grid { grid-template-columns: 1fr !important; }
-        }
-        @media (max-width: 600px) { .features-grid { grid-template-columns: 1fr !important; } }
-      `}</style>
-    </div>
-  );
+      {/* ── PROBLEM STRIP ── */}
+      <section style={{
+        background: "#0f0f0f",
+        borderTop: "1px solid #1f1f1f",
+        borderBottom: "1px solid #1f1f1f",
+        padding: "56px 24px",
+      }}>
+        <div style={{
+          maxWidth: 1000,
+          margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+          gap: 32,
+          textAlign: "center",
+        }}>
+          {[
+            {
+              emoji: "📬",
+              headline: "Still chasing payments manually?",
+              body: "Following up on overdue invoices wastes hours every month. Late fee reminders that send themselves pay for the tool in the first week.",
+            },
+            {
+              emoji: "🗃️",
+              headline: "Spreadsheets are not invoicing software.",
+              body: "A manually-updated Excel sheet has no payment link, no status tracking, no reminders, and no client portal. It's costing you money and time.",
+            },
+            {
+              emoji: "💰",
+              headline: "FreshBooks charges more and limits clients.",
+              body: "FreshBooks starts at $17/mo but caps how many clients you can have. We're $15/mo — unlimited clients, unlimited invoices. No tier games.",
+            },
+          ].map(({ emoji, headline, body }) => (
+            <div key={headline}>
+              <div style={{ fontSize: 36, marginBottom: 12 }}>{emoji}</div>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: "#fff", marginBottom: 8 }}>{headline}</h3>
+              <p style={{ fontSize: 15, color: "#666", lineHeight: 1.6 }}>{body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── FEATURES ── */}
+      <section id="features" style={{ padding: "96px 24px", maxWidth: 1100, margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: 64 }}>
+          <h2 style={{ fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 700, letterSpacing: "-1px", marginBottom: 16 }}>
+            Everything you need to get paid.
+          </h2>
+          <p style={{ fontSize: 17, color: "#666", maxWidth: 520, margin: "0 auto" }}>
+            Built for freelancers and small businesses who want to spend time on their work — not their billing.
+          </p>
+        </div>
+
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          gap: 20,
+        }}>
+          {[
+            {
+              icon: "⚡",
+              title: "Invoices in Under 2 Minutes",
+              desc: "Select a client, add line items, hit send. Your invoice is in their inbox with a pay-now button in under two minutes. Professional, branded, done.",
+            },
+            {
+              icon: "🔁",
+              title: "Recurring Invoices",
+              desc: "Set it once and get paid every month automatically. Perfect for retainer clients, subscription billing, and monthly services. No more manual sends.",
+            },
+            {
+              icon: "💳",
+              title: "Online Payment Portal",
+              desc: "Clients pay via card or ACH bank transfer, powered by Stripe. A branded payment portal shows all their invoices — they pay in one click.",
+            },
+            {
+              icon: "⏰",
+              title: "Late Fee Automation",
+              desc: "Set a late fee percentage and ZiggyInvoice adds it automatically after the due date. No awkward follow-up calls, no manual edits — it just happens.",
+            },
+            {
+              icon: "🕐",
+              title: "Time Tracking",
+              desc: "Log hours directly in the app. When it's time to bill, convert tracked time to an invoice with one click. Every minute is accounted for.",
+            },
+            {
+              icon: "🧾",
+              title: "Expense Tracking",
+              desc: "Attach receipts, categorize expenses, and include them on your invoices. Know exactly where your money goes — and get reimbursed for what you spend.",
+            },
+            {
+              icon: "📊",
+              title: "Invoice Status Tracking",
+              desc: "See at a glance which invoices are sent, viewed, paid, or overdue. Never wonder if a client saw your invoice again.",
+            },
+            {
+              icon: "🌍",
+              title: "Multi-Currency Support",
+              desc: "Invoice clients in their local currency. Bill USD, EUR, GBP, CAD, and more — ZiggyInvoice handles the currency display automatically.",
+            },
+          ].map(({ icon, title, desc }) => (
+            <div key={title} style={{
+              background: "#111111",
+              border: "1px solid #1f1f1f",
+              borderRadius: 14,
+              padding: "28px 24px",
+            }}>
+              <div style={{ fontSize: 32, marginBottom: 14 }}>{icon}</div>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: "#fff", marginBottom: 10 }}>{title}</h3>
+              <p style={{ fontSize: 14, color: "#666", lineHeight: 1.65 }}>{desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── COMING SOON STRIP ── */}
+      <section style={{
+        background: "#0d0d0d",
+        borderTop: "1px solid #1f1f1f",
+        borderBottom: "1px solid #1f1f1f",
+        padding: "64px 24px",
+      }}>
+        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 40 }}>
+            <h2 style={{ fontSize: 28, fontWeight: 700, marginBottom: 8 }}>What's coming next</h2>
+            <p style={{ color: "#555", fontSize: 15 }}>We ship fast. Here's what's in the pipeline.</p>
+          </div>
+
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+            gap: 16,
+          }}>
+            {[
+              {
+                icon: "📚",
+                title: "QuickBooks Sync",
+                badge: "Coming Soon",
+                badgeColor: "#0066ff",
+                desc: "Sync invoices and payments directly with QuickBooks. One-click accounting, no manual exports.",
+              },
+              {
+                icon: "🏦",
+                title: "Bank Reconciliation",
+                badge: "Coming Soon",
+                badgeColor: "#0066ff",
+                desc: "Match payments to invoices automatically. Keep your books clean without an accountant.",
+              },
+              {
+                icon: "📋",
+                title: "Tax Summaries",
+                badge: "Coming Soon",
+                badgeColor: "#0066ff",
+                desc: "Automated annual and quarterly tax summaries. Know exactly what you owe before April.",
+              },
+            ].map(({ icon, title, badge, badgeColor, desc }) => (
+              <div key={title} style={{
+                background: "#111111",
+                border: "1px solid #1f1f1f",
+                borderRadius: 14,
+                padding: "24px 22px",
+              }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+                  <span style={{ fontSize: 28 }}>{icon}</span>
+                  <span style={{
+                    background: `${badgeColor}20`,
+                    color: badgeColor,
+                    border: `1px solid ${badgeColor}40`,
+                    borderRadius: 99,
+                    padding: "3px 10px",
+                    fontSize: 11,
+                    fontWeight: 700,
+                    letterSpacing: "0.04em",
+                    textTransform: "uppercase" as const,
+                  }}>{badge}</span>
+                </div>
+                <h3 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 6 }}>{title}</h3>
+                <p style={{ fontSize: 13, color: "#666", lineHeight: 1.6, marginTop: 6 }}>{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── INDUSTRIES ── */}
+      <section style={{
+        padding: "96px 24px",
+        background: "#080808",
+        borderTop: "1px solid #1f1f1f",
+        borderBottom: "1px solid #1f1f1f",
+      }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 56 }}>
+            <h2 style={{ fontSize: "clamp(30px, 4vw, 46px)", fontWeight: 700, letterSpacing: "-1px", marginBottom: 14 }}>
+              Built for every kind of freelancer
+            </h2>
+            <p style={{ fontSize: 17, color: "#666", maxWidth: 520, margin: "0 auto" }}>
+              Whether you're hourly, project-based, or retainer — ZiggyInvoice handles your billing your way.
+            </p>
+          </div>
+
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            gap: 16,
+            marginBottom: 40,
+          }}>
+            {[
+              { icon: "💻", name: "Freelancers & Developers", desc: "Hourly or project invoices, retainer billing, milestone payments — tracked and automated." },
+              { icon: "🎨", name: "Designers & Creatives", desc: "Project billing, revision fees, licensing charges, and brand retainer invoices in one place." },
+              { icon: "🔨", name: "Contractors & Trades", desc: "Job invoices with material charges, deposit requests, and final billing — all tracked per project." },
+              { icon: "🎓", name: "Coaches & Consultants", desc: "Session billing, package invoices, and retainer charges. Recurring billing handles your monthly clients." },
+              { icon: "📸", name: "Photographers & Videographers", desc: "Shoot deposits, licensing fees, album delivery invoices, and print orders — all in one system." },
+              { icon: "🏠", name: "Property Management", desc: "Rental invoices, maintenance billing, HOA fees, and owner disbursements with recurring automation." },
+              { icon: "🩺", name: "Healthcare & Wellness", desc: "Session billing, package invoices, and insurance-friendly exports for therapists, coaches, and practitioners." },
+              { icon: "🌿", name: "Landscaping & Green Services", desc: "Seasonal contracts, per-job billing, and recurring maintenance charges for your weekly and monthly clients." },
+            ].map(({ icon, name, desc }) => (
+              <div key={name} style={{
+                background: "#111111",
+                border: "1px solid #1f1f1f",
+                borderRadius: 14,
+                padding: "24px 22px",
+                display: "flex",
+                alignItems: "flex-start",
+                gap: 16,
+              }}>
+                <span style={{ fontSize: 32, flexShrink: 0, lineHeight: 1 }}>{icon}</span>
+                <div>
+                  <h3 style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 5 }}>{name}</h3>
+                  <p style={{ fontSize: 13, color: "#666", lineHeight: 1.55, margin: 0 }}>{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Custom callout */}
+          <div style={{
+            background: ACCENT_BG,
+            border: `1px solid ${ACCENT_BORDER}`,
+            borderRadius: 14,
+            padding: "32px 36px",
+            display: "flex",
+            flexWrap: "wrap" as const,
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 20,
+          }}>
+            <div>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: "#fff", marginBottom: 6 }}>Whatever you do, we'll handle the billing.</h3>
+              <p style={{ fontSize: 15, color: "#888", maxWidth: 480, lineHeight: 1.6, margin: 0 }}>
+                ZiggyInvoice works for any freelancer or service business. Every plan includes onboarding support to get your first invoices out the door.
+              </p>
+            </div>
+            <a href="https://app.ziggyinvoice.com/signup" style={{
+              background: ACCENT,
+              color: "#fff",
+              padding: "13px 26px",
+              borderRadius: 9,
+              fontSize: 15,
+              fontWeight: 600,
+              whiteSpace: "nowrap" as const,
+              flexShrink: 0,
+            }}>
+              Start Free →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── COMPARISON TABLE ── */}
+      <section style={{ padding: "96px 24px", maxWidth: 900, margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: 48 }}>
+          <h2 style={{ fontSize: "clamp(28px, 4vw, 42px)", fontWeight: 700, letterSpacing: "-0.8px", marginBottom: 12 }}>
+            ZiggyInvoice vs FreshBooks
+          </h2>
+          <p style={{ color: "#666", fontSize: 16 }}>
+            Unlimited clients. Every feature. $2 less per month.
+          </p>
+        </div>
+
+        <div style={{ overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 15 }}>
+            <thead>
+              <tr>
+                <th style={{ textAlign: "left", padding: "14px 20px", color: "#555", fontWeight: 600, fontSize: 13, borderBottom: "1px solid #1f1f1f" }}>Feature</th>
+                <th style={{ textAlign: "center", padding: "14px 20px", color: ACCENT, fontWeight: 700, fontSize: 15, borderBottom: "1px solid #1f1f1f", background: ACCENT_DIM }}>ZiggyInvoice</th>
+                <th style={{ textAlign: "center", padding: "14px 20px", color: "#555", fontWeight: 600, fontSize: 13, borderBottom: "1px solid #1f1f1f" }}>FreshBooks</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ["Price", "$15/mo", "From $17/mo"],
+                ["Client limit", "Unlimited", "Limited on lower tiers (up to 5)"],
+                ["Invoice limit", "Unlimited", "Unlimited"],
+                ["Online payments (Stripe/card)", "✅ Yes", "✅ Yes"],
+                ["Recurring invoices", "✅ Yes", "✅ Yes"],
+                ["Late fee automation", "✅ Yes", "✅ Yes"],
+                ["Time tracking", "✅ Yes", "✅ Yes"],
+                ["Expense tracking", "✅ Yes", "✅ Yes"],
+                ["Client payment portal", "✅ Yes", "✅ Yes"],
+                ["Multi-currency", "✅ Yes", "✅ Yes"],
+                ["Invoice status tracking", "✅ Yes", "✅ Yes"],
+                ["QuickBooks sync", "🔧 Coming Soon", "✅ Yes"],
+                ["Annual contract", "No — cancel anytime", "No"],
+                ["Free trial", "14 days, no credit card", "30 days"],
+              ].map(([feature, invoice, freshbooks], i) => (
+                <tr key={feature} style={{ background: i % 2 === 0 ? "transparent" : "#0d0d0d" }}>
+                  <td style={{ padding: "14px 20px", color: "#888", borderBottom: "1px solid #161616" }}>{feature}</td>
+                  <td style={{ padding: "14px 20px", color: "#fff", textAlign: "center", borderBottom: "1px solid #161616", background: ACCENT_DIM, fontWeight: 500 }}>{invoice}</td>
+                  <td style={{ padding: "14px 20px", color: "#555", textAlign: "center", borderBottom: "1px solid #161616" }}>{freshbooks}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div style={{
+          marginTop: 24,
+          background: ACCENT_BG,
+          border: `1px solid ${ACCENT_BORDER}`,
+          borderRadius: 12,
+          padding: "20px 24px",
+          textAlign: "center",
+        }}>
+          <p style={{ color: "#ccc", fontSize: 15, lineHeight: 1.7 }}>
+            💡 <strong style={{ color: "#fff" }}>Bottom line:</strong> FreshBooks charges $17/mo and limits how many clients you can have on lower tiers. We're $15/mo — unlimited clients, unlimited invoices, no tier games. <strong style={{ color: ACCENT }}>Everything you need, $2 less.</strong>
+          </p>
+        </div>
+
+        <p style={{ textAlign: "center", marginTop: 16, fontSize: 13, color: "#444" }}>
+          Pricing data sourced from FreshBooks.com · Updated March 2026
+        </p>
+      </section>
+
+      {/* ── PRICING ── */}
+      <section id="pricing" style={{
+        padding: "96px 24px",
+        background: "#080808",
+        borderTop: "1px solid #1f1f1f",
+        borderBottom: "1px solid #1f1f1f",
+      }}>
+        <div style={{ maxWidth: 520, margin: "0 auto", textAlign: "center" }}>
+          <h2 style={{ fontSize: "clamp(28px, 4vw, 42px)", fontWeight: 700, letterSpacing: "-0.8px", marginBottom: 12 }}>
+            One price. Everything included.
+          </h2>
+          <p style={{ color: "#666", fontSize: 16, marginBottom: 48 }}>
+            No tiers. No client limits. No hidden fees.
+          </p>
+
+          <div style={{
+            background: "#111111",
+            border: `2px solid ${ACCENT}`,
+            borderRadius: 20,
+            padding: "40px 36px",
+            marginBottom: 20,
+          }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: ACCENT, textTransform: "uppercase" as const, letterSpacing: "0.1em", marginBottom: 12 }}>
+              ZiggyInvoice
+            </div>
+            <div style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: 4, marginBottom: 4 }}>
+              <span style={{ fontSize: 64, fontWeight: 700, color: "#fff", letterSpacing: "-2px" }}>$15</span>
+              <span style={{ fontSize: 18, color: "#555" }}>/mo</span>
+            </div>
+            <p style={{ color: "#555", fontSize: 14, marginBottom: 32 }}>
+              Everything included · Unlimited clients · Unlimited invoices
+            </p>
+
+            <ul style={{ listStyle: "none", padding: 0, marginBottom: 32, textAlign: "left" }}>
+              {[
+                "Unlimited invoices",
+                "Unlimited clients",
+                "Professional invoice builder (2 min or less)",
+                "Recurring invoice automation",
+                "Online payment portal (Stripe — card & ACH)",
+                "Late fee automation",
+                "Time tracking + one-click invoicing",
+                "Expense tracking & receipt attachment",
+                "Invoice status tracking (sent, viewed, paid, overdue)",
+                "Multi-currency support",
+              ].map(item => (
+                <li key={item} style={{ padding: "7px 0", fontSize: 15, color: "#ccc", display: "flex", alignItems: "center", gap: 10, borderBottom: "1px solid #1a1a1a" }}>
+                  <span style={{ color: ACCENT, fontWeight: 700, flexShrink: 0 }}>✓</span> {item}
+                </li>
+              ))}
+            </ul>
+
+            <a href="https://app.ziggyinvoice.com/signup" style={{
+              display: "block",
+              background: ACCENT,
+              color: "#fff",
+              padding: "16px",
+              borderRadius: 10,
+              fontSize: 16,
+              fontWeight: 700,
+              textAlign: "center",
+            }}>
+              Start Free Trial — No credit card required
+            </a>
+          </div>
+
+          {/* Bundle callout */}
+          <div style={{
+            background: "#111111",
+            border: "1px solid #1f1f1f",
+            borderRadius: 14,
+            padding: "22px 24px",
+            textAlign: "center",
+          }}>
+            <p style={{ color: "#888", fontSize: 14, lineHeight: 1.6 }}>
+              🏢 <strong style={{ color: "#fff" }}>Running a full business?</strong> Get all ZiggyTech apps — including ZiggyInvoice — for a flat monthly rate with the ZiggyTech Business Suite.{" "}
+              <a href="https://ziggybusiness.com" style={{ color: ACCENT, textDecoration: "underline" }}>Learn more →</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section style={{ padding: "96px 24px", maxWidth: 740, margin: "0 auto" }}>
+        <h2 style={{ fontSize: "clamp(28px, 4vw, 38px)", fontWeight: 700, letterSpacing: "-0.6px", marginBottom: 48, textAlign: "center" }}>
+          Questions? We've got answers.
+        </h2>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          {[
+            {
+              q: "How much does ZiggyInvoice cost?",
+              a: "$15/mo flat. That includes unlimited invoices, unlimited clients, recurring billing, late fee automation, time tracking, expense tracking, and a client payment portal. One price. Everything included.",
+            },
+            {
+              q: "Are there any limits on clients or invoices?",
+              a: "None. Unlimited clients, unlimited invoices — forever. We don't tier-gate basic features or penalize you for having a full client roster.",
+            },
+            {
+              q: "How do clients pay?",
+              a: "Clients pay through the online payment portal — credit card or ACH bank transfer, powered by Stripe. Funds go directly to your Stripe account. You can also invoice in multiple currencies.",
+            },
+            {
+              q: "How does the free trial work?",
+              a: "Sign up and get 14 days free — no credit card required. Full access to every live feature from day one. If you don't want to continue, nothing to cancel.",
+            },
+            {
+              q: "How does recurring billing work?",
+              a: "Set up a recurring invoice once — choose the client, amount, and interval (monthly, quarterly, etc.). ZiggyInvoice automatically sends the invoice on schedule. Perfect for retainer clients.",
+            },
+            {
+              q: "How is ZiggyInvoice different from FreshBooks?",
+              a: "FreshBooks starts at $17/mo but limits how many clients you can have on lower tiers. ZiggyInvoice is $15/mo with unlimited clients and unlimited invoices — no tier games, no upsells. Everything included, $2 less.",
+            },
+          ].map(({ q, a }) => (
+            <details key={q} style={{
+              background: "#111111",
+              border: "1px solid #1f1f1f",
+              borderRadius: 10,
+              overflow: "hidden",
+            }}>
+              <summary style={{
+                padding: "20px 24px",
+                fontSize: 16,
+                fontWeight: 600,
+                color: "#fff",
+                cursor: "pointer",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}>
+                {q}
+                <span style={{ color: ACCENT, fontSize: 20, fontWeight: 400, flexShrink: 0 }}>+</span>
+              </summary>
+              <div style={{ padding: "0 24px 20px", fontSize: 15, color: "#777", lineHeight: 1.7, borderTop: "1px solid #1a1a1a" }}>
+                <p style={{ marginTop: 16 }}>{a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      {/* ── FINAL CTA ── */}
+      <section style={{
+        padding: "100px 24px",
+        textAlign: "center",
+        background: "linear-gradient(180deg, #0a0a0a 0%, #08070f 100%)",
+        borderTop: "1px solid #1f1f1f",
+      }}>
+        <h2 style={{
+          fontSize: "clamp(36px, 5vw, 58px)",
+          fontWeight: 700,
+          letterSpacing: "-1.5px",
+          marginBottom: 20,
+          lineHeight: 1.1,
+        }}>
+          Your invoice isn't going to<br />
+          <span style={{
+            background: `linear-gradient(135deg, #fff 0%, ${ACCENT} 100%)`,
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+          }}>pay itself.</span>
+        </h2>
+        <p style={{ fontSize: 18, color: "#555", marginBottom: 40 }}>
+          14 days free. No credit card. Send your first invoice today.
+        </p>
+        <a href="https://app.ziggyinvoice.com/signup" style={{
+          display: "inline-block",
+          background: ACCENT,
+          color: "#fff",
+          padding: "18px 40px",
+          borderRadius: 12,
+          fontSize: 18,
+          fontWeight: 700,
+          letterSpacing: "-0.2px",
+        }}>
+          Start Free Trial →
+        </a>
+      </section>
+
+      {/* ── FOOTER ── */}
+      <footer style={{
+        background: "#050505",
+        borderTop: "1px solid #111",
+        padding: "40px 24px",
+      }}>
+        <div style={{
+          maxWidth: 1100,
+          margin: "0 auto",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 20,
+          textAlign: "center",
+        }}>
+          <div style={{ display: "flex", gap: 28, flexWrap: "wrap" as const, justifyContent: "center" }}>
+            {[
+              ["Home", "/"],
+              ["Features", "#features"],
+              ["Compare", "/vs/freshbooks"],
+              ["Pricing", "#pricing"],
+              ["Privacy", "/privacy"],
+              ["Terms", "/terms"],
+              ["Sign In", "https://app.ziggyinvoice.com/login"],
+            ].map(([label, href]) => (
+              <a key={label} href={href} style={{ color: "#555", fontSize: 14, fontWeight: 500 }}>
+                {label}
+              </a>
+            ))}
+          </div>
+
+          <p style={{ fontSize: 13, color: "#333" }}>
+            Part of{" "}
+            <a href="https://ziggybusiness.com" style={{ color: "#555" }}>ZiggyTech Business Suite</a>
+            {" · "}
+            <a href="https://ziggybusiness.com" style={{ color: "#555" }}>ziggybusiness.com</a>
+          </p>
+
+          <p style={{ fontSize: 13, color: "#2a2a2a" }}>
+            © 2026 ZiggyInvoice. All rights reserved.
+          </p>
+        </div>
+      </footer>
+    </>
+  )
 }
