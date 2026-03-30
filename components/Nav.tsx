@@ -88,25 +88,9 @@ export default function Nav() {
         }}
       >
         {/* Logo */}
-        <Link
-          href="/"
-          style={{
-            textDecoration: "none",
-            display: "flex",
-            alignItems: "center",
-            flexShrink: 0,
-            gap: "2px",
-          }}
-        >
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style={{ marginRight: "6px" }}>
-            <rect width="28" height="28" rx="7" fill="#6366f1" />
-            <path d="M8 20L14 8L20 20" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M10.5 16h7" stroke="white" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-          <span style={{ fontWeight: 700, fontSize: "18px", color: "#111827", letterSpacing: "-0.3px" }}>
-            Ziggy<span style={{ color: "#6366f1" }}>Invoice</span>
-          </span>
-        </Link>
+        <a href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
+          <img src="/ziggyinvoice-wordmark-v3.png" alt="ZiggyInvoice" style={{ height: 32, width: "auto" }} />
+        </a>
 
         {/* Desktop nav links */}
         <div

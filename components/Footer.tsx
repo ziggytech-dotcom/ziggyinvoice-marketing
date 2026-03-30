@@ -42,16 +42,9 @@ export default function Footer() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "48px" }} className="footer-grid">
           {/* Brand */}
           <div style={{ maxWidth: "280px" }}>
-            <Link href="/" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", marginBottom: "16px", gap: "6px" }}>
-              <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-                <rect width="28" height="28" rx="7" fill="#6366f1" />
-                <path d="M8 20L14 8L20 20" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M10.5 16h7" stroke="white" strokeWidth="2" strokeLinecap="round" />
-              </svg>
-              <span style={{ fontWeight: 700, fontSize: "18px", color: "#111827", letterSpacing: "-0.3px" }}>
-                Ziggy<span style={{ color: "#6366f1" }}>Invoice</span>
-              </span>
-            </Link>
+            <a href="/" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", marginBottom: "16px" }}>
+              <img src="/ziggyinvoice-wordmark-v3.png" alt="ZiggyInvoice" style={{ height: 32, width: "auto" }} />
+            </a>
             <p style={{ fontWeight: 400, fontSize: "15px", color: "#6b7280", lineHeight: "1.6", margin: 0 }}>
               Professional invoicing for freelancers and small businesses. Get paid faster.
             </p>
