@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Pricing — Starter $19 · Growth $49 · Pro $99",
+  title: "Pricing — Starter $15 · Growth $29 · Pro $59",
   description:
-    "ZiggyInvoice plans starting at $19/mo. Starter for freelancers, Growth for small teams, Pro for agencies. 14-day free trial, no credit card required.",
+    "ZiggyInvoice plans starting at $15/mo. Starter for freelancers, Growth for small teams, Pro for agencies. 14-day free trial, no credit card required.",
 };
 
 const PLANS = [
   {
     name: "Starter",
-    price: 19,
+    price: 15,
     desc: "Perfect for freelancers and solo operators",
     highlight: false,
     features: [
@@ -25,7 +25,7 @@ const PLANS = [
   },
   {
     name: "Growth",
-    price: 49,
+    price: 29,
     desc: "For growing small businesses and teams",
     highlight: true,
     features: [
@@ -43,7 +43,7 @@ const PLANS = [
   },
   {
     name: "Pro",
-    price: 99,
+    price: 59,
     desc: "For agencies and high-volume businesses",
     highlight: false,
     features: [
