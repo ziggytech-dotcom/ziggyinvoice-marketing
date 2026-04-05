@@ -19,7 +19,7 @@ const rows = [
   { feature: `Priority support`, ziggy: true },
 ]
 const reasons = [
-  `Save money every month — FreshBooks charges $17/mo. ZiggyInvoice starts at $15/mo.`,
+  `Save money every month — QuickBooks charges $30/mo. ZiggyInvoice starts at $15/mo.`,
   `ZiggyInvoice is built for how small businesses actually operate — not enterprise workflows.`,
   `Get up and running in under an hour. No lengthy onboarding required.`,
   `ZiggyInvoice integrates natively with all 9 other ZiggyTech apps. No API setup needed.`,
@@ -32,9 +32,9 @@ export default function ComparePage() {
       <section className="relative overflow-hidden pt-20 pb-20 px-4">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#14b8a6]/8 rounded-full blur-3xl pointer-events-none" />
         <div className="max-w-4xl mx-auto text-center relative">
-          <div className="inline-flex items-center gap-2 bg-[#1a1a1a] border border-[#2d2d2d] rounded-full px-4 py-1.5 text-sm text-[#b3b3b3] mb-8">ZiggyInvoice vs FreshBooks</div>
+          <div className="inline-flex items-center gap-2 bg-[#1a1a1a] border border-[#2d2d2d] rounded-full px-4 py-1.5 text-sm text-[#b3b3b3] mb-8">ZiggyInvoice vs QuickBooks</div>
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-            <span className="text-[#14b8a6]">ZiggyInvoice</span> vs <span className="text-[#b3b3b3]">FreshBooks</span>
+            <span className="text-[#14b8a6]">ZiggyInvoice</span> vs <span className="text-[#b3b3b3]">QuickBooks</span>
           </h1>
           <p className="text-xl text-[#b3b3b3] max-w-2xl mx-auto mb-10">The honest comparison. Same core features. Better pricing for small teams.</p>
           <Link href="https://app.ziggyinvoice.com/signup" className="bg-[#14b8a6] text-white rounded-xl px-8 py-4 font-semibold text-lg hover:opacity-90 inline-block">Try ZiggyInvoice Free</Link>
@@ -44,7 +44,7 @@ export default function ComparePage() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-6">The verdict</h2>
           <div className="bg-[#1a1a1a] border border-[#2d2d2d] rounded-xl p-6">
-            <p className="text-[#b3b3b3] leading-relaxed">FreshBooks limits you to 5 clients on their cheapest $17/mo plan. To get unlimited clients you need the $55/mo Premium plan. ZiggyInvoice starts at $15/mo with unlimited clients from day one.</p>
+            <p className="text-[#b3b3b3] leading-relaxed">QuickBooks is full accounting software starting at $30/mo — but most freelancers use only 20% of its features. ZiggyInvoice focuses on the invoicing part: unlimited invoices, recurring billing, late fees, time tracking, and Stripe payments.</p>
           </div>
         </div>
       </section>
@@ -58,8 +58,8 @@ export default function ComparePage() {
               <p className="text-sm text-[#14b8a6] mt-2">Full ZiggyTech Suite integration</p>
             </div>
             <div className="bg-[#111111] border border-[#1f1f1f] rounded-2xl p-8 text-center">
-              <p className="text-xl font-bold text-white mb-2">FreshBooks</p>
-              <p className="text-5xl font-bold text-white mb-1">$17<span className="text-xl text-[#b3b3b3]">/mo</span></p>
+              <p className="text-xl font-bold text-white mb-2">QuickBooks</p>
+              <p className="text-5xl font-bold text-white mb-1">$30<span className="text-xl text-[#b3b3b3]">/mo</span></p>
               <p className="text-sm text-[#b3b3b3] mt-2">No suite integration</p>
             </div>
           </div>
@@ -71,7 +71,7 @@ export default function ComparePage() {
             <div className="grid grid-cols-3 bg-[#1a1a1a] border-b border-[#1f1f1f]">
               <div className="p-4 text-sm font-semibold text-[#b3b3b3]">Feature</div>
               <div className="p-4 text-sm font-semibold text-[#14b8a6] text-center">ZiggyInvoice</div>
-              <div className="p-4 text-sm font-semibold text-[#b3b3b3] text-center">FreshBooks</div>
+              <div className="p-4 text-sm font-semibold text-[#b3b3b3] text-center">QuickBooks</div>
             </div>
             {rows.map((r) => (
               <div key={r.feature} className="grid grid-cols-3 border-b border-[#1f1f1f] last:border-0">

@@ -1,200 +1,133 @@
-import type { Metadata } from "next";
+'use client'
+import { useState } from 'react'
+import Link from 'next/link'
+import { MarketingNav } from '@/app/components/Nav'
+import { MarketingFooter } from '@/app/components/Footer'
 
-export const metadata: Metadata = {
-  title: "Pricing — Starter $15 · Growth $29 · Pro $59",
-  description:
-    "ZiggyInvoice plans starting at $15/mo. Starter for freelancers, Growth for small teams, Pro for agencies. 14-day free trial, no credit card required.",
-};
-
-const PLANS = [
-  {
-    name: "Starter",
-    price: 15,
-    desc: "Perfect for freelancers and solo operators",
-    highlight: false,
-    features: [
-      "Up to 10 active clients",
-      "Unlimited invoices",
-      "Stripe online payments",
-      "Auto payment reminders",
-      "Professional PDF templates",
-      "Client payment portal",
-      "Real-time notifications",
-      "Email support",
-    ],
-  },
-  {
-    name: "Growth",
-    price: 29,
-    desc: "For growing small businesses and teams",
-    highlight: true,
-    features: [
-      "Unlimited clients",
-      "Unlimited invoices",
-      "Stripe online payments",
-      "Auto payment reminders",
-      "Professional PDF templates",
-      "Client payment portal",
-      "Recurring invoices",
-      "Multi-user access (3 seats)",
-      "Custom branding",
-      "Priority email support",
-    ],
-  },
-  {
-    name: "Pro",
-    price: 59,
-    desc: "For agencies and high-volume businesses",
-    highlight: false,
-    features: [
-      "Unlimited clients",
-      "Unlimited invoices",
-      "Stripe online payments",
-      "Auto payment reminders",
-      "Professional PDF templates",
-      "Client payment portal",
-      "Recurring invoices",
-      "Unlimited team members",
-      "Custom branding & white label",
-      "Advanced reporting",
-      "API access",
-      "Dedicated account manager",
-    ],
-  },
-];
-
-const FAQS = [
-  { q: "Is there a free trial?", a: "Yes — 14 days free, no credit card required. Try the plan of your choice risk-free." },
-  { q: "Can I switch plans later?", a: "Absolutely. Upgrade or downgrade at any time. Changes take effect immediately." },
-  { q: "What payment methods do clients use?", a: "Visa, Mastercard, Amex, Discover, and ACH bank transfers via Stripe." },
-  { q: "Are there transaction fees?", a: "ZiggyInvoice charges no transaction fees. Standard Stripe processing fees apply (2.9% + 30¢)." },
-  { q: "Do you offer annual billing?", a: "Yes — pay annually and save 20% on any plan. Contact us after signing up." },
-  { q: "Can I cancel anytime?", a: "Yes. Cancel anytime from your dashboard. No questions asked, no cancellation fees." },
-];
+const starterFeatures = [
+  `Unlimited invoices`,
+  `Unlimited clients`,
+  `Professional templates`,
+  `Stripe payments`,
+  `Recurring billing`,
+  `Late fees`,
+  `Automatic reminders`,
+  `Email support`,
+]
+const proFeatures = [
+  `Everything in Starter`,
+  `Time tracking`,
+  `Expense management`,
+  `Client payment portal`,
+  `Tax reports`,
+  `Custom branding`,
+  `Team access`,
+  `Priority support`,
+  `API access`,
+]
+const compRows = [
+  { feature: `Invoices per month`, starter: `Unlimited`, pro: `Unlimited` },
+  { feature: `Client limit`, starter: `Unlimited`, pro: `Unlimited` },
+  { feature: `Invoice templates`, starter: true, pro: true },
+  { feature: `Stripe payments`, starter: true, pro: true },
+  { feature: `Recurring billing`, starter: true, pro: true },
+  { feature: `Late fees`, starter: true, pro: true },
+  { feature: `Payment reminders`, starter: true, pro: true },
+  { feature: `Time tracking`, starter: false, pro: true },
+  { feature: `Expense management`, starter: false, pro: true },
+  { feature: `Client payment portal`, starter: false, pro: true },
+  { feature: `Tax reports`, starter: false, pro: true },
+  { feature: `Custom branding`, starter: false, pro: true },
+  { feature: `API access`, starter: false, pro: true },
+  { feature: `Priority support`, starter: false, pro: true },
+]
+const faqs = [
+  { q: `Is there really no client limit?`, a: `No client limit, ever. Starter is $15/mo for unlimited invoices and unlimited clients.` },
+  { q: `How do clients pay?`, a: `Clients receive a payment link in the invoice email. They can pay via credit card or ACH bank transfer, powered by Stripe. Payments land in your Stripe account.` },
+  { q: `Can I set up automatic recurring invoices?`, a: `Yes. Set up a recurring invoice with any billing interval — weekly, monthly, quarterly, or custom. ZiggyInvoice sends automatically and follows up with payment reminders.` },
+  { q: `Do you take a percentage of payments?`, a: `No. ZiggyInvoice charges a flat monthly fee. Stripe's standard processing fee (2.9% + 30 cents) applies to card payments — that goes to Stripe, not us.` },
+]
 
 export default function PricingPage() {
+  const [openFaq, setOpenFaq] = useState<number | null>(null)
   return (
-    <div style={{ background: "#ffffff", color: "#111827" }}>
-
-      {/* Hero */}
-      <section style={{ padding: "80px 24px 64px", background: "linear-gradient(135deg, #eef2ff 0%, #ffffff 60%)", borderBottom: "1px solid #e5e7eb" }}>
-        <div style={{ maxWidth: "720px", margin: "0 auto", textAlign: "center" }}>
-          <h1 style={{ fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 800, letterSpacing: "-2px", color: "#111827", margin: "0 0 20px", lineHeight: 1.1 }}>
-            Simple pricing that{" "}
-            <span style={{ color: "#6366f1" }}>scales with you</span>
-          </h1>
-          <p style={{ fontSize: "18px", color: "#6b7280", lineHeight: 1.65, margin: 0 }}>
-            Start small and upgrade as your business grows. 14-day free trial on every plan.
-          </p>
+    <div className="bg-[#0a0a0a] min-h-screen" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+      <MarketingNav />
+      <section className="pt-20 pb-16 px-4 text-center">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#14b8a6] mb-4">Pricing</p>
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">Simple, honest pricing</h1>
+          <p className="text-xl text-[#b3b3b3] max-w-2xl mx-auto">No seat traps. No hidden fees. Just a price that works.</p>
         </div>
       </section>
-
-      {/* Pricing cards */}
-      <section style={{ padding: "64px 24px" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px" }} className="plans-grid">
-            {PLANS.map((plan) => (
-              <div key={plan.name} style={{ border: plan.highlight ? "2px solid #6366f1" : "1px solid #e5e7eb", borderRadius: "16px", padding: "36px 28px", background: "#ffffff", position: "relative", display: "flex", flexDirection: "column" }}>
-                {plan.highlight && (
-                  <div style={{ position: "absolute", top: "-14px", left: "50%", transform: "translateX(-50%)", background: "#6366f1", color: "#ffffff", fontSize: "12px", fontWeight: 700, padding: "4px 16px", borderRadius: "999px", whiteSpace: "nowrap" }}>
-                    MOST POPULAR
-                  </div>
-                )}
-
-                <div style={{ marginBottom: "24px" }}>
-                  <div style={{ fontSize: "18px", fontWeight: 700, color: "#111827", marginBottom: "6px" }}>{plan.name}</div>
-                  <div style={{ fontSize: "13px", color: "#6b7280", marginBottom: "20px" }}>{plan.desc}</div>
-                  <div style={{ display: "flex", alignItems: "baseline", gap: "4px" }}>
-                    <span style={{ fontSize: "48px", fontWeight: 800, color: "#111827", letterSpacing: "-2px", lineHeight: 1 }}>${plan.price}</span>
-                    <span style={{ fontSize: "16px", color: "#9ca3af" }}>/mo</span>
-                  </div>
+      <section className="py-12 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+            <div className="bg-[#111111] border border-[#1f1f1f] rounded-2xl p-8">
+              <p className="text-sm font-semibold text-[#b3b3b3] uppercase tracking-wider mb-2">Starter</p>
+              <div className="flex items-end gap-1 mb-1"><span className="text-6xl font-bold text-white">$15</span><span className="text-[#b3b3b3] mb-2 text-lg">/mo</span></div>
+              <p className="text-sm text-[#b3b3b3] mb-6">Unlimited invoices · Unlimited clients</p>
+              <Link href="https://app.ziggyinvoice.com/signup" className="block w-full text-center px-6 py-3.5 bg-[#14b8a6]/10 border border-[#14b8a6]/30 text-[#14b8a6] rounded-xl font-semibold hover:bg-[#14b8a6]/20 transition-all mb-6">Start free trial</Link>
+              <ul className="space-y-3">{starterFeatures.map((f) => <li key={f} className="flex items-start gap-3 text-[#b3b3b3] text-sm"><svg className="w-4 h-4 text-[#14b8a6] mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>{f}</li>)}</ul>
+            </div>
+            <div className="bg-[#111111] border-2 border-[#14b8a6]/40 rounded-2xl p-8 relative">
+              <div className="absolute -top-3 left-6"><span className="px-3 py-1 bg-[#14b8a6] text-white text-xs font-bold rounded-full uppercase">Most Popular</span></div>
+              <p className="text-sm font-semibold text-[#b3b3b3] uppercase tracking-wider mb-2">Pro</p>
+              <div className="flex items-end gap-1 mb-1"><span className="text-6xl font-bold text-white">$25</span><span className="text-[#b3b3b3] mb-2 text-lg">/mo</span></div>
+              <p className="text-sm text-[#b3b3b3] mb-6">Unlimited + time tracking + expenses + client portal</p>
+              <Link href="https://app.ziggyinvoice.com/signup" className="block w-full text-center px-6 py-3.5 bg-[#14b8a6] text-white rounded-xl font-semibold hover:opacity-90 transition-all mb-6">Start free trial</Link>
+              <ul className="space-y-3">{proFeatures.map((f) => <li key={f} className="flex items-start gap-3 text-[#b3b3b3] text-sm"><svg className="w-4 h-4 text-[#14b8a6] mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>{f}</li>)}</ul>
+            </div>
+          </div>
+          <h2 className="text-2xl font-bold text-white mb-6 text-center">Feature comparison</h2>
+          <div className="bg-[#111111] border border-[#1f1f1f] rounded-2xl overflow-hidden mb-16">
+            <div className="grid grid-cols-3 bg-[#1a1a1a] border-b border-[#1f1f1f]">
+              <div className="p-4 text-sm font-semibold text-[#b3b3b3]">Feature</div>
+              <div className="p-4 text-sm font-semibold text-white text-center">Starter</div>
+              <div className="p-4 text-sm font-semibold text-[#14b8a6] text-center">Pro</div>
+            </div>
+            {compRows.map((r) => (
+              <div key={r.feature} className="grid grid-cols-3 border-b border-[#1f1f1f] last:border-0 hover:bg-[#151515]">
+                <div className="p-4 text-sm text-[#b3b3b3]">{r.feature}</div>
+                <div className="p-4 text-center">
+                  {typeof r.starter === 'boolean' ? (r.starter ? <svg className="w-5 h-5 text-[#14b8a6] mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg> : <svg className="w-5 h-5 text-[#555] mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>) : <span className="text-sm text-[#b3b3b3]">{r.starter}</span>}
                 </div>
-
-                <a href="https://app.ziggyinvoice.com/signup" className={plan.highlight ? "btn-plan-primary" : "btn-plan-outline"} style={{ display: "block", textAlign: "center", textDecoration: "none", padding: "12px 20px", borderRadius: "10px", marginBottom: "28px", fontWeight: 700, fontSize: "15px" }}>
-                  Start free trial
-                </a>
-
-                <div style={{ height: "1px", background: "#f3f4f6", marginBottom: "24px" }} />
-
-                <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "12px", flex: 1 }}>
-                  {plan.features.map((f) => (
-                    <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "14px", color: "#374151" }}>
-                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style={{ flexShrink: 0, marginTop: "1px" }}>
-                        <circle cx="9" cy="9" r="9" fill={plan.highlight ? "#eef2ff" : "#f3f4f6"} />
-                        <path d="M5.5 9l2.5 2.5 5-5" stroke="#6366f1" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
+                <div className="p-4 text-center">
+                  {typeof r.pro === 'boolean' ? (r.pro ? <svg className="w-5 h-5 text-[#14b8a6] mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg> : <svg className="w-5 h-5 text-[#555] mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>) : <span className="text-sm text-[#14b8a6] font-medium">{r.pro}</span>}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="bg-[#111111] border border-[#1f1f1f] rounded-2xl p-6 mb-8 text-center">
+            <p className="text-[#b3b3b3] text-sm mb-2">vs the competition</p>
+            <div className="flex flex-wrap justify-center gap-8">
+              <div><p className="text-[#b3b3b3] text-sm">FreshBooks</p><p className="text-2xl font-bold text-white">$17<span className="text-base text-[#b3b3b3]">/mo</span></p></div>
+              <div><p className="text-[#14b8a6] text-sm font-medium">ZiggyInvoice</p><p className="text-2xl font-bold text-[#14b8a6]">$15<span className="text-base text-[#b3b3b3]">/mo</span></p></div>
+              <div><p className="text-[#b3b3b3] text-sm">QuickBooks</p><p className="text-2xl font-bold text-white">$30<span className="text-base text-[#b3b3b3]">/mo</span></p></div>
+            </div>
+          </div>
+          <div className="max-w-2xl mx-auto space-y-3">
+            <h2 className="text-2xl font-bold text-white mb-6 text-center">Pricing FAQ</h2>
+            {faqs.map((faq, i) => (
+              <div key={i} className="bg-[#111111] border border-[#1f1f1f] rounded-2xl overflow-hidden">
+                <button className="w-full flex items-center justify-between p-6 text-left" onClick={() => setOpenFaq(openFaq === i ? null : i)}>
+                  <span className="text-white font-semibold pr-4">{faq.q}</span>
+                  <svg className={`w-5 h-5 text-[#14b8a6] flex-shrink-0 transition-transform ${openFaq === i ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                </button>
+                {openFaq === i && <div className="px-6 pb-6"><p className="text-[#b3b3b3] leading-relaxed">{faq.a}</p></div>}
               </div>
             ))}
           </div>
         </div>
       </section>
-
-      {/* FAQ */}
-      <section style={{ padding: "64px 24px 96px", background: "#f9fafb", borderTop: "1px solid #e5e7eb" }}>
-        <div style={{ maxWidth: "720px", margin: "0 auto" }}>
-          <h2 style={{ fontSize: "clamp(26px, 3vw, 36px)", fontWeight: 800, letterSpacing: "-1px", color: "#111827", margin: "0 0 48px", textAlign: "center" }}>
-            Frequently asked questions
-          </h2>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            {FAQS.map((faq, i) => (
-              <div key={faq.q} style={{ padding: "24px 0", borderBottom: i < FAQS.length - 1 ? "1px solid #e5e7eb" : "none" }}>
-                <div style={{ fontSize: "16px", fontWeight: 700, color: "#111827", marginBottom: "8px" }}>{faq.q}</div>
-                <div style={{ fontSize: "15px", color: "#6b7280", lineHeight: 1.65 }}>{faq.a}</div>
-              </div>
-            ))}
-          </div>
+      <section className="py-24 px-4 text-center">
+        <div className="max-w-2xl mx-auto">
+          <h2 className="text-4xl font-bold text-white mb-6">Start your free trial today</h2>
+          <p className="text-xl text-[#b3b3b3] mb-8">14 days free. No credit card required.</p>
+          <Link href="https://app.ziggyinvoice.com/signup" className="inline-flex items-center gap-2 px-10 py-5 bg-[#14b8a6] text-white rounded-xl font-bold text-xl hover:opacity-90 transition-all">Start Free Trial</Link>
         </div>
       </section>
-
-      {/* CTA */}
-      <section style={{ padding: "80px 24px", background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)" }}>
-        <div style={{ maxWidth: "580px", margin: "0 auto", textAlign: "center" }}>
-          <h2 style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, color: "#ffffff", letterSpacing: "-1.5px", margin: "0 0 16px" }}>
-            Start your free trial today
-          </h2>
-          <p style={{ fontSize: "17px", color: "rgba(255,255,255,0.8)", margin: "0 0 36px" }}>
-            No credit card required. All plans include a 14-day free trial.
-          </p>
-          <a href="https://app.ziggyinvoice.com/signup" className="btn-white-cta">
-            Get started free →
-          </a>
-        </div>
-      </section>
-
-      <style>{`
-        .btn-plan-primary {
-          background: #6366f1;
-          color: #ffffff;
-          transition: background 0.15s;
-        }
-        .btn-plan-primary:hover { background: #4f46e5; }
-        .btn-plan-outline {
-          background: #ffffff;
-          color: #374151;
-          border: 1px solid #d1d5db;
-          transition: background 0.15s;
-        }
-        .btn-plan-outline:hover { background: #f3f4f6; }
-        .btn-white-cta {
-          display: inline-block;
-          background: #ffffff;
-          color: #6366f1;
-          font-weight: 700;
-          font-size: 16px;
-          text-decoration: none;
-          padding: 14px 32px;
-          border-radius: 10px;
-          transition: background 0.15s;
-        }
-        .btn-white-cta:hover { background: #f3f4f6; }
-        @media (max-width: 899px) {
-          .plans-grid { grid-template-columns: 1fr !important; max-width: 460px; margin: 0 auto; }
-        }
-      `}</style>
+      <MarketingFooter />
     </div>
-  );
+  )
 }

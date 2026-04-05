@@ -1,65 +1,25 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
+import type { Metadata } from "next"
+import { Space_Grotesk } from "next/font/google"
+import "./globals.css"
+import { CookieBanner } from "@/app/components/CookieBanner"
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], weight: ["400","500","600","700"], variable: "--font-space-grotesk" })
 
 export const metadata: Metadata = {
-  title: {
-    default: "ZiggyInvoice — Invoicing that gets you paid faster",
-    template: "%s | ZiggyInvoice",
-  },
-  description:
-    "Send professional invoices, accept Stripe payments online, and get paid faster. Auto-reminders, client portal, recurring invoices — starting at $19/mo.",
-  keywords: [
-    "invoicing software",
-    "invoice generator",
-    "online payments",
-    "freelance invoicing",
-    "small business invoicing",
-    "stripe invoicing",
-  ],
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://ziggyinvoice.com",
-    siteName: "ZiggyInvoice",
-    title: "ZiggyInvoice — Invoicing that gets you paid faster",
-    description:
-      "Send professional invoices, accept Stripe payments online, and get paid faster.",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "ZiggyInvoice — Invoicing that gets you paid faster",
-    description:
-      "Send professional invoices, accept Stripe payments online, and get paid faster.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  title: { default: "ZiggyInvoice — Get paid. Stop chasing.", template: "%s | ZiggyInvoice" },
+  description: "Get paid. Stop chasing.. Part of the ZiggyTech Business Suite.",
+  openGraph: { title: "ZiggyInvoice — Get paid. Stop chasing.", description: "Get paid. Stop chasing..", siteName: "ZiggyInvoice", url: "https://ziggyinvoice.com" },
+  icons: { icon: '/favicon.ico' },
+  metadataBase: new URL("https://ziggyinvoice.com"),
+}
 
-  icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
-};
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={inter.variable} style={{ fontFamily: "var(--font-inter), Inter, sans-serif" }}>
-      <body style={{ fontFamily: "var(--font-inter), Inter, sans-serif" }}>
-        <Nav />
-        <main>{children}</main>
-        <Footer />
+    <html lang="en" className={spaceGrotesk.variable}>
+      <body className="bg-[#0a0a0a] text-white antialiased" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+        {children}
+        <CookieBanner />
       </body>
     </html>
-  );
+  )
 }

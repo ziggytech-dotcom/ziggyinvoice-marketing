@@ -1,171 +1,64 @@
-import type { Metadata } from "next";
-import Link from "next/link";
+import Link from 'next/link'
+import { MarketingNav } from '@/app/components/Nav'
+import { MarketingFooter } from '@/app/components/Footer'
 
-export const metadata: Metadata = {
-  title: "Features — Professional Invoicing Software",
-  description:
-    "Explore every ZiggyInvoice feature: Stripe payments, PDF generation, auto reminders, client management, overdue tracking, and recurring invoices.",
-};
-
-const FEATURES = [
-  {
-    id: "stripe-payments",
-    eyebrow: "Online Payments",
-    title: "Accept payments online — instantly",
-    body: "Clients pay directly from the invoice with a credit card, debit card, or bank transfer. Powered by Stripe, the world's most trusted payment platform. Funds hit your account in 2–3 business days.",
-    benefits: [
-      "Visa, Mastercard, Amex, ACH bank transfer",
-      "Auto-reconciliation — books update automatically",
-      "Payment confirmation emails sent to both parties",
-      "No manual chasing required",
-    ],
-  },
-  {
-    id: "pdf-generation",
-    eyebrow: "PDF Generation",
-    title: "Beautiful, branded invoice PDFs",
-    body: "Every invoice generates a pixel-perfect PDF automatically. Your logo, brand colors, and all payment details — ready to attach to any email or download on demand.",
-    benefits: [
-      "Auto-generated on every invoice",
-      "Client can download from their portal",
-      "Professional layout — no templates to fiddle with",
-      "Tax breakdown included",
-    ],
-  },
-  {
-    id: "auto-reminders",
-    eyebrow: "Automated Follow-ups",
-    title: "Stop chasing. Start getting paid.",
-    body: "ZiggyInvoice sends polite, professional payment reminders automatically. Set the schedule once — before due date, on due date, and overdue — and never think about it again.",
-    benefits: [
-      "Customizable reminder schedules",
-      "3 reminder touchpoints — before, on, and after due date",
-      "Professional tone — never awkward",
-      "Disable anytime with one click",
-    ],
-  },
-  {
-    id: "client-management",
-    eyebrow: "Client Management",
-    title: "All your clients in one place",
-    body: "Store contact details, billing addresses, and payment history for every client. Send an invoice in seconds — no re-entering data every time.",
-    benefits: [
-      "Unlimited client records",
-      "Invoice history per client",
-      "Custom payment terms per client",
-      "Client portal access for self-service",
-    ],
-  },
-  {
-    id: "overdue-tracking",
-    eyebrow: "Overdue Tracking",
-    title: "Know exactly who owes you — right now",
-    body: "The overdue dashboard gives you a real-time view of every unpaid invoice. Filter by amount, client, or days overdue. Take action instantly.",
-    benefits: [
-      "Color-coded status indicators",
-      "One-click payment reminder",
-      "Aging report by days overdue",
-      "Cash flow projection dashboard",
-    ],
-  },
-  {
-    id: "recurring-invoices",
-    eyebrow: "Recurring Billing",
-    title: "Automate your retainer billing",
-    body: "Set up recurring invoices for monthly retainers or subscriptions. ZiggyInvoice sends them automatically, on schedule, every time.",
-    benefits: [
-      "Weekly, monthly, quarterly, or custom",
-      "Auto-send on schedule",
-      "Auto-remind if unpaid",
-      "Easy to pause or cancel",
-    ],
-  },
-];
+const features = [
+  { title: `Unlimited Invoices`, desc: `Create and send as many invoices as your business needs. No client limits, no invoice limits.`, bullets: [`Unlimited invoices`, `Unlimited clients`, `Professional invoice templates`, `Custom fields`, `Multi-currency support`, `Bulk invoice creation`] },
+  { title: `Recurring Billing`, desc: `Set up recurring invoices for retainer clients. Invoices send automatically and reminders follow up for you.`, bullets: [`Flexible billing intervals`, `Auto-send on schedule`, `Automatic payment reminders`, `Retry failed payments`, `Pause and resume`, `Recurring analytics`] },
+  { title: `Late Fees`, desc: `Automatically add late fees to overdue invoices. Set your policy once — a flat fee or percentage.`, bullets: [`Flat fee or percentage`, `Grace period configuration`, `Automatic application`, `Notification to client`, `Override per invoice`, `Late payment report`] },
+  { title: `Time Tracking`, desc: `Track billable hours directly in ZiggyInvoice. Convert time entries to invoice line items with one click.`, bullets: [`In-app timer`, `Manual time entry`, `Project-based tracking`, `One-click add to invoice`, `Time report by client`, `Team time tracking (Pro)`] },
+  { title: `Expense Management`, desc: `Log business expenses, attach receipts, and include expenses in client invoices.`, bullets: [`Expense logging`, `Receipt photo capture`, `Expense categories`, `Add to client invoice`, `Expense reports`, `Tax category tagging`] },
+  { title: `Client Payment Portal`, desc: `Clients get their own portal to view outstanding invoices and pay online via credit card or ACH.`, bullets: [`Branded client portal`, `Outstanding invoice view`, `Payment history`, `Credit card + ACH`, `Stripe-powered`, `Auto-receipt on payment`] },
+]
 
 export default function FeaturesPage() {
   return (
-    <div style={{ background: "#ffffff", color: "#111827" }}>
-
-      {/* Hero */}
-      <section style={{ padding: "80px 24px 64px", background: "linear-gradient(135deg, #eef2ff 0%, #ffffff 60%)", borderBottom: "1px solid #e5e7eb" }}>
-        <div style={{ maxWidth: "720px", margin: "0 auto", textAlign: "center" }}>
-          <div style={{ display: "inline-flex", alignItems: "center", background: "#eef2ff", border: "1px solid #c7d2fe", borderRadius: "999px", padding: "6px 14px", marginBottom: "24px" }}>
-            <span style={{ fontSize: "13px", fontWeight: 600, color: "#6366f1" }}>All features included in every plan</span>
-          </div>
-          <h1 style={{ fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 800, letterSpacing: "-2px", color: "#111827", margin: "0 0 20px", lineHeight: 1.1 }}>
-            Every tool you need to{" "}
-            <span style={{ color: "#6366f1" }}>run your invoicing</span>
-          </h1>
-          <p style={{ fontSize: "18px", color: "#6b7280", lineHeight: 1.65, margin: "0 0 36px" }}>
-            Professional invoicing, online payments, automated follow-ups, and client management — all in one simple dashboard.
-          </p>
-          <a href="https://app.ziggyinvoice.com/signup" style={{ display: "inline-block", background: "#6366f1", color: "#ffffff", fontWeight: 700, fontSize: "16px", textDecoration: "none", padding: "14px 28px", borderRadius: "10px" }}>
-            Start free trial →
-          </a>
+    <div className="bg-[#0a0a0a] min-h-screen" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+      <MarketingNav />
+      <section className="relative overflow-hidden pt-20 pb-16 px-4">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#14b8a6]/8 rounded-full blur-3xl pointer-events-none" />
+        <div className="max-w-4xl mx-auto text-center relative">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#14b8a6] mb-4">Features</p>
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">Everything ZiggyInvoice can do</h1>
+          <p className="text-xl text-[#b3b3b3] max-w-2xl mx-auto mb-8">Every feature explained. No fluff.</p>
+          <Link href="https://app.ziggyinvoice.com/signup" className="inline-flex items-center gap-2 px-8 py-4 bg-[#14b8a6] text-white rounded-xl font-semibold text-lg hover:opacity-90 transition-all">
+            Start Free Trial — 14 days free
+          </Link>
         </div>
       </section>
-
-      {/* Feature blocks */}
-      <section style={{ padding: "80px 24px" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "80px" }}>
-          {FEATURES.map((f, i) => (
-            <div key={f.id} id={f.id} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "64px", alignItems: "center" }} className="feature-row">
-              <div style={{ order: i % 2 === 1 ? 2 : 1 }}>
-                <div style={{ display: "inline-flex", background: "#eef2ff", color: "#6366f1", fontSize: "12px", fontWeight: 700, padding: "4px 12px", borderRadius: "999px", letterSpacing: "0.05em", textTransform: "uppercase", marginBottom: "20px" }}>
-                  {f.eyebrow}
-                </div>
-                <h2 style={{ fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 800, color: "#111827", letterSpacing: "-1px", margin: "0 0 16px", lineHeight: 1.2 }}>
-                  {f.title}
-                </h2>
-                <p style={{ fontSize: "16px", color: "#6b7280", lineHeight: 1.7, margin: "0 0 24px" }}>{f.body}</p>
-                <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
-                  {f.benefits.map((b) => (
-                    <li key={b} style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "15px", color: "#374151" }}>
-                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style={{ flexShrink: 0, marginTop: "2px" }}>
-                        <circle cx="9" cy="9" r="9" fill="#eef2ff" />
-                        <path d="M5.5 9l2.5 2.5 5-5" stroke="#6366f1" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
+      <section className="py-16 px-4">
+        <div className="max-w-5xl mx-auto space-y-16">
+          {features.map((f, i) => (
+            <div key={f.title} className={`flex flex-col ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-12 items-start`}>
+              <div className="flex-1">
+                <h2 className="text-3xl font-bold text-white mb-4">{f.title}</h2>
+                <p className="text-lg text-[#b3b3b3] leading-relaxed mb-6">{f.desc}</p>
+                <ul className="space-y-2">
+                  {f.bullets.map((b) => (
+                    <li key={b} className="flex items-center gap-3 text-[#b3b3b3]">
+                      <div className="w-5 h-5 rounded-full bg-[#14b8a6]/20 border border-[#14b8a6]/40 flex items-center justify-center flex-shrink-0">
+                        <svg className="w-3 h-3 text-[#14b8a6]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                      </div>
                       {b}
                     </li>
                   ))}
                 </ul>
               </div>
-              <div style={{ order: i % 2 === 1 ? 1 : 2, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <div style={{ background: "#f9fafb", border: "1px solid #e5e7eb", borderRadius: "20px", padding: "48px", display: "flex", alignItems: "center", justifyContent: "center", width: "100%", minHeight: "240px" }}>
-                  <div style={{ textAlign: "center" }}>
-                    <div style={{ fontSize: "56px", marginBottom: "12px" }}>
-                      {i === 0 ? "💳" : i === 1 ? "📄" : i === 2 ? "🔔" : i === 3 ? "👥" : i === 4 ? "⏰" : "🔄"}
-                    </div>
-                    <div style={{ fontSize: "15px", fontWeight: 600, color: "#6366f1" }}>{f.eyebrow}</div>
-                  </div>
-                </div>
+              <div className="flex-1 bg-[#111111] border border-[#1f1f1f] rounded-2xl aspect-video flex items-center justify-center">
+                <p className="text-[#555] text-sm">Screenshot coming soon</p>
               </div>
             </div>
           ))}
         </div>
       </section>
-
-      {/* CTA */}
-      <section style={{ padding: "80px 24px", background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)" }}>
-        <div style={{ maxWidth: "580px", margin: "0 auto", textAlign: "center" }}>
-          <h2 style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, color: "#ffffff", letterSpacing: "-1.5px", margin: "0 0 16px" }}>
-            Ready to try every feature free?
-          </h2>
-          <p style={{ fontSize: "17px", color: "rgba(255,255,255,0.8)", margin: "0 0 36px", lineHeight: 1.6 }}>
-            14-day free trial. All features included. No credit card required.
-          </p>
-          <a href="https://app.ziggyinvoice.com/signup" style={{ display: "inline-block", background: "#ffffff", color: "#6366f1", fontWeight: 700, fontSize: "16px", textDecoration: "none", padding: "14px 32px", borderRadius: "10px" }}>
-            Start free trial →
-          </a>
+      <section className="py-24 px-4 text-center">
+        <div className="max-w-2xl mx-auto">
+          <h2 className="text-4xl font-bold text-white mb-6">Ready to see it in action?</h2>
+          <p className="text-xl text-[#b3b3b3] mb-8">14-day free trial. No credit card required.</p>
+          <Link href="https://app.ziggyinvoice.com/signup" className="inline-flex items-center gap-2 px-10 py-5 bg-[#14b8a6] text-white rounded-xl font-bold text-xl hover:opacity-90 transition-all">Start Free Trial</Link>
         </div>
       </section>
-
-      <style>{`
-        @media (max-width: 768px) {
-          .feature-row { grid-template-columns: 1fr !important; gap: 32px !important; }
-          .feature-row > div { order: unset !important; }
-        }
-      `}</style>
+      <MarketingFooter />
     </div>
-  );
+  )
 }
