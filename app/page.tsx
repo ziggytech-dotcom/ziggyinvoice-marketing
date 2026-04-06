@@ -5,12 +5,54 @@ import { MarketingNav } from '@/app/components/Nav'
 import { MarketingFooter } from '@/app/components/Footer'
 
 const features = [
-  { title: `Unlimited Invoices`, desc: `Create and send as many invoices as your business needs. No client limits, no invoice limits.` },
-  { title: `Recurring Billing`, desc: `Set up recurring invoices for retainer clients. Invoices send automatically and reminders follow up for you.` },
-  { title: `Late Fees`, desc: `Automatically add late fees to overdue invoices. Set your policy once — a flat fee or percentage.` },
-  { title: `Time Tracking`, desc: `Track billable hours directly in ZiggyInvoice. Convert time entries to invoice line items with one click.` },
-  { title: `Expense Management`, desc: `Log business expenses, attach receipts, and include expenses in client invoices.` },
-  { title: `Client Payment Portal`, desc: `Clients get their own portal to view outstanding invoices and pay online via credit card or ACH.` },
+  {
+    icon: (
+      <svg className="w-6 h-6 text-[#14b8a6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+      </svg>
+    ),
+    title: `Unlimited Invoices`, desc: `Create and send as many invoices as your business needs. No client limits, no invoice limits.`
+  },
+  {
+    icon: (
+      <svg className="w-6 h-6 text-[#14b8a6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+      </svg>
+    ),
+    title: `Recurring Billing`, desc: `Set up recurring invoices for retainer clients. Invoices send automatically and reminders follow up for you.`
+  },
+  {
+    icon: (
+      <svg className="w-6 h-6 text-[#14b8a6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    title: `Late Fees`, desc: `Automatically add late fees to overdue invoices. Set your policy once — a flat fee or percentage.`
+  },
+  {
+    icon: (
+      <svg className="w-6 h-6 text-[#14b8a6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+      </svg>
+    ),
+    title: `Time Tracking`, desc: `Track billable hours directly in ZiggyInvoice. Convert time entries to invoice line items with one click.`
+  },
+  {
+    icon: (
+      <svg className="w-6 h-6 text-[#14b8a6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+    ),
+    title: `Expense Management`, desc: `Log business expenses, attach receipts, and include expenses in client invoices.`
+  },
+  {
+    icon: (
+      <svg className="w-6 h-6 text-[#14b8a6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    ),
+    title: `Client Payment Portal`, desc: `Clients get their own portal to view outstanding invoices and pay online via credit card or ACH.`
+  },
 ]
 const heroFacts = [
   '$15/mo — unlimited clients from day one',
@@ -40,11 +82,11 @@ export default function HomePage() {
 
       <section className="relative overflow-hidden pt-32 pb-24 px-4">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-[#14b8a6]/12 rounded-full blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] rounded-full blur-3xl" style={{backgroundColor: "rgba(20,184,166,0.08)"}} />
           <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.1) 1px,transparent 1px)', backgroundSize: '64px 64px' }} />
         </div>
         <div className="relative max-w-5xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#14b8a6]/10 border border-[#14b8a6]/20 text-[#14b8a6] text-xs font-semibold uppercase tracking-widest mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[rgba(20,184,166,0.10)] border border-[#14b8a6]/20 text-[#14b8a6] text-xs font-semibold uppercase tracking-widest mb-8">
             ZiggyInvoice — Invoicing for local business
           </div>
           <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight tracking-tight mb-6">
@@ -58,7 +100,7 @@ export default function HomePage() {
               Start Free Trial
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             </Link>
-            <Link href="/features" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#14b8a6]/10 border border-[#14b8a6]/30 text-[#14b8a6] rounded-xl font-semibold text-lg hover:bg-[#14b8a6]/20 transition-all">
+            <Link href="/features" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-[rgba(20,184,166,0.10)] border border-[#14b8a6]/30 text-[#14b8a6] rounded-xl font-semibold text-lg hover:bg-[rgba(20,184,166,0.20)] transition-all">
               See Features
             </Link>
           </div>
@@ -82,14 +124,17 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {features.map((f) => (
-              <div key={f.title} className="bg-[#111111] border border-[#1f1f1f] rounded-2xl p-6 md:p-8 hover:border-[#14b8a6]/30 transition-all">
+              <div key={f.title} className="bg-[#111111] border border-[#1f1f1f] rounded-2xl p-6 md:p-8 hover:border-[#14b8a6]/30 hover:shadow-[0_0_30px_rgba(20,184,166,0.08)] transition-all group">
+                <div className="w-12 h-12 rounded-xl bg-[rgba(20,184,166,0.10)] border border-[#14b8a6]/20 flex items-center justify-center mb-5 group-hover:bg-[rgba(20,184,166,0.20)] transition-colors">
+                  {f.icon}
+                </div>
                 <h3 className="text-xl font-semibold text-white mb-3">{f.title}</h3>
                 <p className="text-[#b3b3b3] leading-relaxed">{f.desc}</p>
               </div>
             ))}
           </div>
           <div className="text-center mt-12">
-            <Link href="/features" className="inline-flex items-center gap-2 px-8 py-4 bg-[#14b8a6]/10 border border-[#14b8a6]/30 text-[#14b8a6] rounded-xl font-semibold hover:bg-[#14b8a6]/20 transition-all">
+            <Link href="/features" className="inline-flex items-center gap-2 px-8 py-4 bg-[rgba(20,184,166,0.10)] border border-[#14b8a6]/30 text-[#14b8a6] rounded-xl font-semibold hover:bg-[rgba(20,184,166,0.20)] transition-all">
               View all features
             </Link>
           </div>
@@ -97,7 +142,7 @@ export default function HomePage() {
       </section>
 
       <section className="relative overflow-hidden py-24 md:py-32 px-4 bg-gradient-to-br from-[#080c10] via-[#0d1828] to-[#080c10]">
-        <div className="absolute top-0 right-0 w-[600px] h-[400px] bg-[#14b8a6]/6 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[600px] h-[400px] bg-[rgba(20,184,166,0.06)] rounded-full blur-3xl pointer-events-none" />
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#14b8a6] mb-4">Our story</p>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-8">We&apos;ve been in your shoes</h2>
@@ -129,7 +174,7 @@ export default function HomePage() {
                 <span className="text-[#b3b3b3] mb-2">/mo</span>
               </div>
               <p className="text-sm text-[#b3b3b3] mb-6">Unlimited invoices · Unlimited clients</p>
-              <Link href="https://app.ziggyinvoice.com/signup" className="block w-full text-center px-6 py-3 bg-[#14b8a6]/10 border border-[#14b8a6]/30 text-[#14b8a6] rounded-xl font-semibold hover:bg-[#14b8a6]/20 transition-all">Start free trial</Link>
+              <Link href="https://app.ziggyinvoice.com/signup" className="block w-full text-center px-6 py-3 bg-[rgba(20,184,166,0.10)] border border-[#14b8a6]/30 text-[#14b8a6] rounded-xl font-semibold hover:bg-[rgba(20,184,166,0.20)] transition-all">Start free trial</Link>
             </div>
             <div className="bg-[#111111] border-2 border-[#14b8a6]/40 rounded-2xl p-8 text-left relative">
               <div className="absolute -top-3 left-6"><span className="px-3 py-1 bg-[#14b8a6] text-white text-xs font-bold rounded-full uppercase">Most Popular</span></div>
@@ -199,7 +244,7 @@ export default function HomePage() {
               Start Free Trial
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             </Link>
-            <Link href="/pricing" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-5 bg-[#14b8a6]/10 border border-[#14b8a6]/30 text-[#14b8a6] rounded-xl font-bold text-xl hover:bg-[#14b8a6]/20 transition-all">
+            <Link href="/pricing" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-5 bg-[rgba(20,184,166,0.10)] border border-[#14b8a6]/30 text-[#14b8a6] rounded-xl font-bold text-xl hover:bg-[rgba(20,184,166,0.20)] transition-all">
               View Pricing
             </Link>
           </div>
