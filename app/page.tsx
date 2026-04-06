@@ -48,8 +48,7 @@ export default function HomePage() {
             ZiggyInvoice — Invoicing for local business
           </div>
           <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight tracking-tight mb-6">
-            Get paid.{' '}
-            {tagline.split('. ').length > 1 && <span className="text-[#14b8a6]">Stop chasing.</span>}
+            Get paid. Stop chasing.
           </h1>
           <p className="text-xl md:text-2xl text-[#b3b3b3] max-w-3xl mx-auto leading-relaxed mb-10">
             FreshBooks charges $17/month and limits your clients on lower tiers. We charge $15/month for unlimited invoices, unlimited clients, and no surprises.
